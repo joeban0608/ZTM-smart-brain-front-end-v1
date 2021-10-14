@@ -1,5 +1,4 @@
 # smart-brain-v1
-There is the part by covering the ZTM-Final Project-Smart Brain Front-end.  
 這是跟著ZTM教學，做的前端人臉辨識編碼，此編碼還沒與後端連結。 
 
 ---  
