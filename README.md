@@ -4,8 +4,8 @@ There is the part by covering the ZTM-Final Project-Smart Brain Front-end.
 
 ---  
 ### reference:    
-  TM-課程 [Link here](https://www.udemy.com/share/101WcU3@XNVd54LtGB5w73KeTAMPkTWmtoMMCHU6i9ONGnlUBgqarAGzzmY17aLXHT2fjIJASg==/ "title")  
-  我的blog教學 [Link here](https://www.notion.so/ZTM-Final-Project-Smart-Brain-Front-end-001764fffff647309a2df15b8b1a1fb2)
+-ZTM-課程 [Link here](https://www.udemy.com/share/101WcU3@XNVd54LtGB5w73KeTAMPkTWmtoMMCHU6i9ONGnlUBgqarAGzzmY17aLXHT2fjIJASg==/ "title")  
+-我的blog教學 [Link here](https://www.notion.so/ZTM-Final-Project-Smart-Brain-Front-end-001764fffff647309a2df15b8b1a1fb2)
   
 ---
 你可以根據下列步驟來測試此react人臉辨識編碼，但記得要有自己的Clarifai api key
