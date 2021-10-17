@@ -64,7 +64,7 @@ class App extends Component {
     const height = image.height;
     return {
       leftCol: clarifaiFace.left_col * width,
-      topRaw: clarifaiFace.top_row * height,
+      topRow: clarifaiFace.top_row * height,
       rightCol: (1 - clarifaiFace.right_col) * width,
       bottomRow: (1 - clarifaiFace.bottom_row) * height
     }
