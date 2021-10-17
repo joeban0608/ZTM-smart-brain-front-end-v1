@@ -8,9 +8,9 @@ const FaceRecognition = ({ imageUrl, box }) => {
                 <img id='inputImage' alt='' src={imageUrl} width='500px' height='auto'/>
                 <div className='bounding-box' 
                      style={
-                            {top:box.topRaw, 
+                            {top:box.topRow, 
                             right: box.rightCol,
-                            bottom: box.bottomRaw,
+                            bottom: box.bottomRow,
                             left: box.leftCol
                             }
                            } ></div>
