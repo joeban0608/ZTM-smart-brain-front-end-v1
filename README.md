@@ -15,3 +15,5 @@
   api 申請詳見我的blog: [點這裡](https://www.notion.so/Clarifai-API-Updates-Models-and-Troubleshooting-a62619f26fc74ab188d7a74b1ea23226 "title")
 ---
 這章完整教學，詳見我的blog: [點這裡](https://www.notion.so/ZTM-Final-Project-Smart-Brain-Front-end-001764fffff647309a2df15b8b1a1fb2 "title")
+---
+作品連結: [點這裡](https://lively-clafoutis-bf780b.netlify.app)
