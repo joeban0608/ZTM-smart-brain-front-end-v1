@@ -10,7 +10,7 @@ import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { loadSlim } from '@tsparticles/slim';
 import Signin from './component/Signin/Signin'
 
-const CLARIFAI_PROXY_URL = '/api/clarifai/outputs';
+const CLARIFAI_FUNCTION_URL = '/.netlify/functions/clarifai';
 
 // particles setting
 const ParticlesOptions = {
@@ -117,7 +117,7 @@ class App extends Component {
   onButtonSubmit = () => {
     this.setState({ imageUrl: this.state.input });
 
-    fetch(CLARIFAI_PROXY_URL, {
+    fetch(CLARIFAI_FUNCTION_URL, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -135,7 +135,15 @@ class App extends Component {
         ]
       })
     })
-      .then((response) => response.json())
+      .then(async (response) => {
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Clarifai request failed');
+        }
+
+        return data;
+      })
       .then((response) => this.setStateBox(this.calculateFaceLocation(response)))
       .catch((err) => console.log(err));
   }
