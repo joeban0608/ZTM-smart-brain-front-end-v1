@@ -6,13 +6,12 @@ import ImageLinkForm from './component/ImageLinkForm/ImageLinkForm'
 import Rank from './component/Rank/Rank'
 import FaceRecognition from './component/FaceRecognition/FaceRecognition'
 import Register from './component/Register/Register';
-import Particles from 'react-particles-js';
-import Clarifai from 'clarifai'
+import Particles, { initParticlesEngine } from '@tsparticles/react';
+import { loadSlim } from '@tsparticles/slim';
 import Signin from './component/Signin/Signin'
 
-const app = new Clarifai.App({
-  apiKey: 'YOUR_API_KEY'
-});
+const CLARIFAI_API_URL = 'https://api.clarifai.com/v2/models/face-detection/outputs';
+const CLARIFAI_API_KEY = process.env.REACT_APP_CLARIFAI_API_KEY;
 
 // particles setting
 const ParticlesOptions = {
@@ -48,12 +47,25 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      particlesReady: false,
       input: '',
       imageUrl: '',
       box:{},
       route: 'signin',
       isSignedIn: false
     }
+  }
+
+  async componentDidMount() {
+    if (process.env.NODE_ENV === 'test') {
+      return;
+    }
+
+    await initParticlesEngine(async (engine) => {
+      await loadSlim(engine);
+    });
+
+    this.setState({ particlesReady: true });
   }
 
   calculateFaceLocation = (data) => {
@@ -79,13 +91,35 @@ class App extends Component {
   }
 
   onButtonSubmit = () => {
-    this.setState({imageUrl: this.state.input})
-    app.models
-      .predict(
-        Clarifai.FACE_DETECT_MODEL, 
-        this.state.input)
-      .then(response => this.setStateBox(this.calculateFaceLocation(response)))
-      .catch(err => console.log(err));
+    this.setState({ imageUrl: this.state.input });
+
+    if (!CLARIFAI_API_KEY) {
+      console.error('Missing REACT_APP_CLARIFAI_API_KEY');
+      return;
+    }
+
+    fetch(CLARIFAI_API_URL, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Key ${CLARIFAI_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        inputs: [
+          {
+            data: {
+              image: {
+                url: this.state.input
+              }
+            }
+          }
+        ]
+      })
+    })
+      .then((response) => response.json())
+      .then((response) => this.setStateBox(this.calculateFaceLocation(response)))
+      .catch((err) => console.log(err));
   }
 
   onRouteChange = (route) => {
@@ -98,10 +132,10 @@ class App extends Component {
   }
 
   render() {
-    const { isSignedIn, imageUrl, route, box } = this.state;
+    const { isSignedIn, imageUrl, particlesReady, route, box } = this.state;
     return (
         <div className="App">
-          <Particles className="particles" params={ParticlesOptions}/>
+          {particlesReady && <Particles className="particles" options={ParticlesOptions} />}
           {/* <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange}/> */}
           <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}/>
           { route === 'home' 
