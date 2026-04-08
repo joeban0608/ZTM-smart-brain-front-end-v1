@@ -15,29 +15,54 @@ const CLARIFAI_API_KEY = process.env.REACT_APP_CLARIFAI_API_KEY;
 
 // particles setting
 const ParticlesOptions = {
+  fullScreen: {
+    enable: false
+  },
+  fpsLimit: 120,
   particles: {
-    number : {
-      value :80,
-      density : {
+    number: {
+      value: 80,
+      density: {
         enable: true,
-        value_area: 800
+        area: 800
       }
     },
     size: {
-        value: 3
+      value: 3
     },
     opacity: {
       value: 1
     },
-    move: {
-      speed: 3
+    links: {
+      color: '#ffffff',
+      distance: 150,
+      enable: true,
+      opacity: 0.4,
+      width: 1
     },
+    move: {
+      enable: true,
+      outModes: {
+        default: 'bounce'
+      },
+      speed: 3
+    }
   },
-  interactivity:{
+  interactivity: {
+    detectsOn: 'canvas',
     events: {
-      onhover: {
+      onHover: {
         enable: true,
         mode: 'repulse'
+      },
+      resize: {
+        enable: true
+      }
+    },
+    modes: {
+      repulse: {
+        distance: 200,
+        duration: 0.4
       }
     }
   }
