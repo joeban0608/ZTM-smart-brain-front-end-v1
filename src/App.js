@@ -10,8 +10,7 @@ import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { loadSlim } from '@tsparticles/slim';
 import Signin from './component/Signin/Signin'
 
-const CLARIFAI_API_URL = 'https://api.clarifai.com/v2/models/face-detection/outputs';
-const CLARIFAI_API_KEY = process.env.REACT_APP_CLARIFAI_API_KEY;
+const CLARIFAI_PROXY_URL = '/api/clarifai/outputs';
 
 // particles setting
 const ParticlesOptions = {
@@ -118,16 +117,10 @@ class App extends Component {
   onButtonSubmit = () => {
     this.setState({ imageUrl: this.state.input });
 
-    if (!CLARIFAI_API_KEY) {
-      console.error('Missing REACT_APP_CLARIFAI_API_KEY');
-      return;
-    }
-
-    fetch(CLARIFAI_API_URL, {
+    fetch(CLARIFAI_PROXY_URL, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Authorization': `Key ${CLARIFAI_API_KEY}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
